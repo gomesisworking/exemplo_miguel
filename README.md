@@ -34,6 +34,13 @@
   - [Parte 4 — Arquiteturas de Web Services](#parte-4--arquiteturas-de-web-services)
   - [Exercícios](#exercícios)
   - [Glossário rápido](#glossário-rápido-1)
+- [Aula 7 — Padrões de Arquitetura + Arquitetura REST](#aula-7--padrões-de-arquitetura--arquitetura-rest)
+  - [Materiais](#materiais-3)
+  - [Objetivo da aula](#objetivo-da-aula-3)
+  - [Parte 1 — Padrões de Arquitetura](#parte-1--padrões-de-arquitetura)
+  - [Parte 2 — Arquitetura REST com Spring Web](#parte-2--arquitetura-rest-com-spring-web)
+  - [Exercícios](#exercícios-1)
+  - [Glossário rápido](#glossário-rápido-2)
 
 ---
 
@@ -1427,5 +1434,287 @@ public class HelloWorldController {
 | **WebSocket** | Protocolo de comunicação bidirecional e persistente, para tempo real. |
 | **Monolito** | Sistema completo, com múltiplos domínios, em uma única aplicação. |
 | **Microsserviço** | Serviço menor e independente, que trabalha em conjunto com outros. |
+
+**Próxima aula:** Padrões de Arquitetura + Arquitetura REST — vamos implementar, na prática, os contratos de API que projetamos hoje.
+
+## Aula 7 — Padrões de Arquitetura + Arquitetura REST
+
+### Materiais
+
+| Arquivo | Conteúdo |
+|---|---|
+| [aula07-padroes-arquitetura-rest.pdf](<Aula 07/aula07-padroes-arquitetura-rest.pdf>) | P8+P9 — Protocolos de rede, HTTP por dentro e Arquitetura REST com Spring Web |
+
+### Objetivo da aula
+
+Descer uma camada abaixo do HTTP (TCP/IP, DNS) para entender o que sustenta toda comunicação na Web, ver como o próprio HTTP evoluiu, e então subir até a prática: construir uma API REST de verdade com Spring Web, em camadas.
+
+---
+
+### Parte 1 — Padrões de Arquitetura
+
+#### Os protocolos por trás de cada requisição
+
+- **TCP/IP** cuidam do endereçamento e da transmissão dos pacotes de dados pela rede — TCP garante integridade, ordem e entrega; IP cuida do roteamento pelo endereço IP.
+- **DNS** (*Domain Name System*) traduz nomes de domínio (`exemplo.com.br`) em endereços IP (`20.30.2.1`), antes mesmo da primeira requisição HTTP.
+- **HTTP/HTTPS** cuidam do tráfego de mensagens entre as aplicações — a camada que já vimos na Aula 06.
+
+> 🧱 **A Web em camadas:** HTML/CSS/JS/Web APIs no topo — HTTP (camada de aplicação) — TLS (se HTTPS) — TCP (entrega) — DNS/IP (nomes e roteamento).
+
+#### HTTP por dentro: anatomia revisitada
+
+```
+POST /login HTTP/1.1
+Host: example.com
+Content-Type: application/json
+Connection: keep-alive
+
+{"user": "teste", "password": "123456"}
+```
+
+- **Request Line:** método + caminho + versão do HTTP.
+- **Host** continua obrigatório mesmo com a conexão já estabelecida — identifica a qual aplicação a requisição se destina naquele servidor.
+- **Connection: keep-alive** pede para reaproveitar a mesma conexão TCP em requisições futuras, evitando o custo de abrir uma nova a cada vez.
+
+#### Cabeçalhos HTTP comuns
+
+| Cabeçalho | Descrição |
+|---|---|
+| `Host` | Nome do servidor de destino |
+| `Content-Length` | Tamanho do corpo da mensagem, em bytes |
+| `Content-Type` | Tipo do corpo da mensagem enviada |
+| `Accept` | Tipos de conteúdo que o cliente aceita receber |
+| `User-Agent` | Identificação do cliente que fez a chamada |
+| `Authorization` | Credenciais de autenticação |
+| `Cookie` | Dados de sessão do cliente |
+| `Connection` | Controle de conexão (`keep-alive` ou `close`) |
+| `Cache-Control` | Controle de cache da resposta |
+| `Last-Modified` | Data/hora da última modificação do recurso |
+
+> 💡 **Content-Type x Accept:** `Content-Type` descreve o formato do que estou *enviando*; `Accept` descreve os formatos que aceito *receber* de volta.
+
+#### Métodos seguros e idempotentes
+
+- **Seguros** (não alteram o servidor): `GET`, `HEAD`, `OPTIONS`.
+- **Idempotentes** (mesmo efeito ao repetir): `GET`, `PUT`, `DELETE`.
+- **`POST`** normalmente não é nem seguro, nem idempotente.
+
+#### 401 x 403
+
+| Código | Significado | Exemplo |
+|---|---|---|
+| `401 Unauthorized` | Cliente não se autenticou corretamente | Token inválido ou ausente |
+| `403 Forbidden` | Cliente autenticado, mas sem permissão | Usuário comum acessando rota administrativa |
+
+#### Cache HTTP
+
+```
+HTTP/1.1 200 OK
+Cache-Control: max-age=3600
+ETag: "produto-10-v3"
+```
+
+`Cache-Control` define por quanto tempo uma resposta pode ser reaproveitada sem nova requisição; `ETag` identifica uma versão específica do recurso.
+
+#### Comparação entre versões do HTTP
+
+| Versão | Ano | Principais mudanças |
+|---|---|---|
+| HTTP/1.0 | 1996 | Pouco/nenhum suporte a compressão; só `GET`, `HEAD` e `POST` |
+| HTTP/1.1 | 1997 | Mais métodos e status codes, Keep-Alive, compressão do corpo |
+| HTTP/2 | 2015 | Protocolo binário, compressão de cabeçalho, multiplexação |
+| HTTP/3 | 2018 | Troca TCP+TLS por UDP+QUIC, sem bloqueio por perda de pacote, TLS 1.3 obrigatório |
+
+#### HTTPS
+
+HTTPS é o HTTP com uma camada de segurança **TLS** (*Transport Layer Security*) por cima. A negociação da criptografia usa chaves públicas e acontece na fase de conexão. Roda por padrão na porta **443** (o HTTP puro roda na 80). TLS é a versão mais recente do antigo SSL — termo que ainda aparece bastante, mesmo se referindo ao TLS atual.
+
+---
+
+### Parte 2 — Arquitetura REST com Spring Web
+
+#### O que é Spring?
+
+Spring é um ecossistema de frameworks para desenvolvimento em Java, com foco em produtividade, organização e baixo acoplamento. É muito usado para APIs REST, sistemas corporativos e microsserviços. O módulo **Spring Web** facilita especificamente a criação de aplicações HTTP.
+
+- **Spring Framework** fornece os módulos e a base do ecossistema.
+- **Spring Boot** simplifica configuração e inicialização — com servidor web (Tomcat) já embutido.
+
+#### Dependências comuns de um projeto Spring Boot
+
+| Dependência | Para que serve |
+|---|---|
+| `spring-boot-starter-web` | Cria APIs HTTP/REST com Spring MVC, servidor embutido |
+| `spring-boot-starter-validation` | Habilita anotações de validação (`@NotBlank`, `@Positive`...) |
+| `spring-boot-starter-data-jpa` | Persistência em banco SQL, com JPA e Hibernate |
+| `spring-boot-devtools` | Recarrega a aplicação automaticamente durante o desenvolvimento |
+
+#### Estrutura básica de projeto
+
+```
+src/main/java/com/exemplo/app/
+├── controller/
+├── service/
+├── repository/
+├── model/
+├── dto/
+└── Application.java
+```
+
+| Camada | Responsabilidade |
+|---|---|
+| **Controller** | Recebe a requisição HTTP e monta a resposta |
+| **Service** | Concentra as regras de negócio |
+| **Repository** | Acessa o banco de dados |
+| **Model / Entity** | Representa os dados da aplicação |
+| **DTO** | Estrutura os dados de entrada e saída da API |
+
+#### Classe principal e Controller
+
+```java
+@SpringBootApplication
+public class Application {
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
+}
+
+@RestController
+@RequestMapping("/produtos")
+public class ProdutoController {
+    // os endpoints entram aqui
+}
+```
+
+#### Mapeando endpoints e parâmetros
+
+```java
+@GetMapping
+public List<Produto> listar() {
+    return service.listar();
+}
+
+@PostMapping
+public Produto criar(@RequestBody Produto produto) {
+    return service.criar(produto);
+}
+
+@GetMapping("/{id}")
+public Produto buscarPorId(@PathVariable Long id) {
+    return service.buscarPorId(id);
+}
+
+@GetMapping("/buscar")
+public List<Produto> buscarPorNome(@RequestParam String nome) {
+    return service.buscarPorNome(nome);
+}
+```
+
+`@PathVariable` lê partes da própria URL; `@RequestParam` lê parâmetros da query string; `@RequestBody` converte o JSON recebido em objeto Java.
+
+#### ResponseEntity e injeção de dependência
+
+```java
+@DeleteMapping("/{id}")
+public ResponseEntity<Void> remover(@PathVariable Long id) {
+    service.remover(id);
+    return ResponseEntity.noContent().build();
+}
+
+@Service
+public class ProdutoService {
+    private final ProdutoRepository repository;
+
+    public ProdutoService(ProdutoRepository repository) {
+        this.repository = repository;
+    }
+}
+```
+
+`ResponseEntity` dá controle total sobre status, headers e corpo da resposta. `@Service` marca uma classe de regra de negócio; o Spring injeta a dependência pelo construtor automaticamente.
+
+#### Validação e tratamento de exceções
+
+```java
+public class ProdutoDTO {
+    @NotBlank
+    private String nome;
+
+    @Positive
+    private BigDecimal preco;
+}
+
+public Produto criar(@Valid @RequestBody ProdutoDTO dto) {
+    return service.criar(dto);
+}
+
+@RestControllerAdvice
+public class ApiExceptionHandler {
+    @ExceptionHandler(ProdutoNaoEncontradoException.class)
+    public ResponseEntity<String> tratarNaoEncontrado() {
+        return ResponseEntity.status(404).body("Produto não encontrado");
+    }
+}
+```
+
+`@Valid` ativa a validação do objeto recebido. `@RestControllerAdvice` centraliza o tratamento de erros, evitando repetir `try/catch` em cada controller.
+
+#### Configuração e o fluxo completo
+
+```properties
+# src/main/resources/application.properties
+spring.application.name=loja-api
+server.port=8080
+spring.datasource.url=jdbc:h2:mem:teste
+```
+
+**Fluxo de uma requisição:** Cliente envia requisição — Controller recebe a rota — Service aplica regras de negócio — Repository consulta/persiste dados — resposta volta como JSON com status HTTP.
+
+#### Boas práticas
+
+| Prática | Por quê |
+|---|---|
+| Separar responsabilidade entre camadas | Facilita manutenção, testes e leitura do código |
+| Evitar regra de negócio no controller | Controller só recebe e devolve — lógica fica no service |
+| Usar DTOs em vez de expor entidades | Evita acoplar o contrato da API à estrutura do banco |
+| Validar entradas recebidas pela API | Evita dados inválidos chegando até a regra de negócio |
+| Retornar códigos HTTP coerentes | Cliente reage corretamente sem precisar ler o corpo |
+
+---
+
+### Exercícios
+
+1. **401, 403 ou cache: qual se aplica?** — check rápido identificando o status code/cabeçalho correto para quatro cenários dados.
+2. **Construindo um endpoint de listagem e criação** — implementar `GET` e `POST` em `TarefaController`, com `TarefaService`, testando com curl/Postman.
+3. **Completando o CRUD de `/tarefas`** — adicionar `GET /{id}` e `DELETE /{id}`, `TarefaDTO` com validação, `ResponseEntity` com `204 No Content`, e um `@RestControllerAdvice` para a exceção de tarefa não encontrada.
+
+---
+
+### Glossário rápido
+
+| Termo | Significado |
+|---|---|
+| **TCP** | Protocolo que garante integridade, ordem e entrega dos pacotes de dados. |
+| **IP** | Protocolo responsável pelo roteamento dos pacotes pela rede. |
+| **DNS** | Sistema que traduz nomes de domínio em endereços IP. |
+| **Métodos seguros** | Métodos HTTP que não alteram o estado do servidor (`GET`, `HEAD`, `OPTIONS`). |
+| **401 Unauthorized** | Cliente não se autenticou corretamente. |
+| **403 Forbidden** | Cliente autenticado, mas sem permissão para a ação. |
+| **Cache-Control / ETag** | Cabeçalhos que evitam transferências desnecessárias entre cliente e servidor. |
+| **HTTPS / TLS** | HTTP com uma camada de criptografia por cima, na porta 443. |
+| **Spring Framework** | Base do ecossistema Spring: módulos, injeção de dependência, infraestrutura. |
+| **Spring Boot** | Simplifica configuração e inicialização, com servidor web embutido. |
+| **`@RestController`** | Anotação que marca uma classe como controller de API REST. |
+| **`@RequestMapping`** | Define o caminho base das rotas de um controller. |
+| **`@PathVariable`** | Lê uma parte da URL (ex.: o `id` em `/produtos/10`). |
+| **`@RequestParam`** | Lê um parâmetro da query string (ex.: `?nome=...`). |
+| **`@RequestBody`** | Converte o JSON do corpo da requisição em um objeto Java. |
+| **`ResponseEntity`** | Dá controle total sobre status, headers e corpo da resposta. |
+| **`@Service`** | Marca uma classe como responsável por regras de negócio. |
+| **DTO** | Objeto que estrutura os dados de entrada/saída da API, separado da entidade. |
+| **`@Valid`** | Ativa a validação de um objeto recebido, com base em suas anotações. |
+| **`@RestControllerAdvice`** | Centraliza o tratamento de exceções para todos os controllers. |
+
+**Próxima aula:** Persistência de Dados — conectando a API REST de hoje a um banco de dados de verdade.
 
 **Próxima aula:** Padrões de Arquitetura + Arquitetura REST — vamos implementar, na prática, os contratos de API que projetamos hoje.
