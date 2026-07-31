@@ -7,25 +7,25 @@
 
 ## Índice
 
-- [Aula 1 — Introdução à Disciplina e Arquitetura da Web](#aula-1--introdução-à-disciplina-e-arquitetura-da-web)
+- [Aula 2 — Introdução à Disciplina e Arquitetura da Web](#aula-2--introdução-à-disciplina-e-arquitetura-da-web)
   - [Tópico 00 — Introdução à Disciplina](#tópico-00--introdução-à-disciplina)
   - [Tópico 01 — Introdução à Web](#tópico-01--introdução-à-web)
   - [Tópico 02 — Arquitetura da Web](#tópico-02--arquitetura-da-web)
-- [Aula 2 — Ambiente de Desenvolvimento: Java na prática + Git na prática](#aula-2--ambiente-de-desenvolvimento-java-na-prática--git-na-prática)
+- [Aula 3 — Ambiente de Desenvolvimento: Java na prática + Git na prática](#aula-3--ambiente-de-desenvolvimento-java-na-prática--git-na-prática)
   - [Materiais](#materiais)
   - [Objetivo da aula](#objetivo-da-aula)
   - [Parte 1 — Java na prática](#parte-1--java-na-prática)
   - [Parte 2 — Git na prática](#parte-2--git-na-prática)
   - [O que aprendemos hoje](#o-que-aprendemos-hoje)
-- [Aula 3 e 4 — Orientação a Objetos em Java + Tópicos Especiais](#aula-3-e-4--orientação-a-objetos-em-java--tópicos-especiais)
+- [Aula 4 e 5 — Orientação a Objetos em Java + Tópicos Especiais](#aula-4-e-5--orientação-a-objetos-em-java--tópicos-especiais)
   - [Materiais](#materiais-1)
   - [Objetivo da aula](#objetivo-da-aula-1)
   - [Parte 1 — Orientação a Objetos em Java](#parte-1--orientação-a-objetos-em-java)
   - [Parte 2 — Tópicos Especiais em Java](#parte-2--tópicos-especiais-em-java)
   - [Parte 3 — Prática: evoluindo o projeto exemplo-oop](#parte-3--prática-evoluindo-o-projeto-exemplo-oop)
   - [Glossário rápido](#glossário-rápido)
-- [Aula 5 — Avaliação N1](#aula-5--avaliação-n1)
-- [Aula 6 — Web Services + Protocolo HTTP/JSON](#aula-6--web-services--protocolo-httpjson)
+- [Aula 6 — Avaliação N1](#aula-6--avaliação-n1)
+- [Aula 7 — Web Services + Protocolo HTTP/JSON](#aula-7--web-services--protocolo-httpjson)
   - [Materiais](#materiais-2)
   - [Objetivo da aula](#objetivo-da-aula-2)
   - [Parte 1 — Web Services](#parte-1--web-services)
@@ -34,7 +34,7 @@
   - [Parte 4 — Arquiteturas de Web Services](#parte-4--arquiteturas-de-web-services)
   - [Exercícios](#exercícios)
   - [Glossário rápido](#glossário-rápido-1)
-- [Aula 7 — Padrões de Arquitetura + Arquitetura REST](#aula-7--padrões-de-arquitetura--arquitetura-rest)
+- [Aula 8 — Padrões de Arquitetura + Arquitetura REST](#aula-8--padrões-de-arquitetura--arquitetura-rest)
   - [Materiais](#materiais-3)
   - [Objetivo da aula](#objetivo-da-aula-3)
   - [Parte 1 — Padrões de Arquitetura](#parte-1--padrões-de-arquitetura)
@@ -44,7 +44,7 @@
 
 ---
 
-## Aula 1 — Introdução à Disciplina e Arquitetura da Web
+## Aula 2 — Introdução à Disciplina e Arquitetura da Web
 
 **Materiais:**
 
@@ -83,27 +83,28 @@ O Backend recebe pedidos, aplica regras de negócio, conversa com o banco de dad
 | **2ª — API REST** | Web Services, arquitetura REST, persistência de dados, DTOs, construção de uma API completa em Java com Spring |
 | **3ª — Tópicos Avançados** | Integração de serviços, observabilidade e testes, Model Context Protocol (MCP), autenticação e segurança, infraestrutura, projeto final |
 
-#### Cronograma completo — 19 aulas
+#### Cronograma completo — 20 aulas
 
 | Aula | Conteúdo |
 |---|---|
-| 1 | Introdução à Disciplina + Arquitetura da Web |
-| 2 | Ambiente de Desenvolvimento |
-| 3-4 | Orientação a Objetos em Java (parte I e II) |
-| 5 | Avaliação N1 |
-| 6 | Web Services + Protocolo HTTP/JSON |
-| 7 | Padrões de Arquitetura + Arquitetura REST |
-| 8 | Persistência de Dados |
-| 9 | DTO e Mapeamento |
-| 10 | Avaliação N2a |
-| 11 | Projeto Intermediário N2b |
-| 12 | Integração de Serviços |
-| 13 | Observabilidade e Testes |
-| 14 | Model Context Protocol (MCP) |
-| 15 | Autenticação e Segurança |
-| 16 | Infraestrutura |
-| 17-18 | Desenvolvimento do Projeto Final |
-| 19 | Projeto Final — Avaliação N3 |
+| 1 | Não há aula para veteranos neste dia |
+| 2 | Introdução à Disciplina e Arquitetura da Web |
+| 3 | Ambiente de Desenvolvimento |
+| 4-5 | Orientação a Objetos em Java + Tópicos Especiais |
+| 6 | Avaliação N1 |
+| 7 | Web Services + Protocolo HTTP/JSON |
+| 8 | Padrões de Arquitetura + Arquitetura REST |
+| 9 | Persistência de Dados |
+| 10 | DTO e Mapeamento |
+| 11 | Avaliação N2a |
+| 12 | Projeto Intermediário N2b |
+| 13 | Integração de Serviços |
+| 14 | Observabilidade e Testes |
+| 15 | Model Context Protocol (MCP) + IA no Desenvolvimento |
+| 16 | Autenticação e Segurança |
+| 17 | Infraestrutura |
+| 18-19 | Desenvolvimento do Projeto Final |
+| 20 | Projeto Final |
 
 *Datas específicas a definir — cronograma sujeito a ajustes.*
 
@@ -293,7 +294,7 @@ curl -v https://exemplo.com
 
 ---
 
-### Resumo geral da Aula 1
+### Resumo geral da Aula 2
 
 - Backend é a "cozinha" de um sistema: regras de negócio, processamento e banco de dados.
 - Internet é a infraestrutura; Web é um dos serviços que rodam sobre ela.
@@ -305,7 +306,7 @@ curl -v https://exemplo.com
 
 ---
 
-## Aula 2 — Ambiente de Desenvolvimento: Java na prática + Git na prática
+## Aula 3 — Ambiente de Desenvolvimento: Java na prática + Git na prática
 
 ### Materiais
 
@@ -721,7 +722,7 @@ Working Directory  →  Staging Area  →  Local Repository  →  Remote Reposit
 
 ---
 
-## Aula 3 e 4 — Orientação a Objetos em Java + Tópicos Especiais
+## Aula 4 e 5 — Orientação a Objetos em Java + Tópicos Especiais
 
 ### Materiais
 
@@ -1164,13 +1165,13 @@ Rastreavel «interface»
 
 **Próxima aula:** Avaliação N1, cobrindo o conteúdo desta aula.
 
-## Aula 5 — Avaliação N1
+## Aula 6 — Avaliação N1
 
 Prova teórica cobrindo Arquitetura da Web, HTTP e Orientação a Objetos em Java (Aulas 1 a 4). Sem materiais adicionais.
 
 **Próxima aula:** Web Services + Protocolo HTTP/JSON.
 
-## Aula 6 — Web Services + Protocolo HTTP/JSON
+## Aula 7 — Web Services + Protocolo HTTP/JSON
 
 **Materiais:**
 
@@ -1190,7 +1191,7 @@ Entender o que é um Web Service, como o protocolo HTTP estrutura a conversa ent
 
 - É um serviço — uma funcionalidade — acessível pela Web, usando a internet como meio de comunicação.
 - Permite que sistemas diferentes, em linguagens e plataformas diferentes, conversem entre si (ex.: um app mobile, um site em JavaScript e um sistema desktop em Java podem consumir o mesmo Web Service).
-- Segue o mesmo modelo cliente-servidor da Aula 01: quem oferece o serviço é o servidor, quem usa é o cliente.
+- Segue o mesmo modelo cliente-servidor da Aula 02: quem oferece o serviço é o servidor, quem usa é o cliente.
 
 #### Três características centrais
 
@@ -1437,7 +1438,7 @@ public class HelloWorldController {
 
 **Próxima aula:** Padrões de Arquitetura + Arquitetura REST — vamos implementar, na prática, os contratos de API que projetamos hoje.
 
-## Aula 7 — Padrões de Arquitetura + Arquitetura REST
+## Aula 8 — Padrões de Arquitetura + Arquitetura REST
 
 ### Materiais
 
@@ -1457,7 +1458,7 @@ Descer uma camada abaixo do HTTP (TCP/IP, DNS) para entender o que sustenta toda
 
 - **TCP/IP** cuidam do endereçamento e da transmissão dos pacotes de dados pela rede — TCP garante integridade, ordem e entrega; IP cuida do roteamento pelo endereço IP.
 - **DNS** (*Domain Name System*) traduz nomes de domínio (`exemplo.com.br`) em endereços IP (`20.30.2.1`), antes mesmo da primeira requisição HTTP.
-- **HTTP/HTTPS** cuidam do tráfego de mensagens entre as aplicações — a camada que já vimos na Aula 06.
+- **HTTP/HTTPS** cuidam do tráfego de mensagens entre as aplicações — a camada que já vimos na Aula 07.
 
 > 🧱 **A Web em camadas:** HTML/CSS/JS/Web APIs no topo — HTTP (camada de aplicação) — TLS (se HTTPS) — TCP (entrega) — DNS/IP (nomes e roteamento).
 
