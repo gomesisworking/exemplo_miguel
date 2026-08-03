@@ -86,6 +86,8 @@ Equipe de até 3 pessoas desenvolve uma API RESTful em **Spring Boot** (Web + Da
 - [ ] `README.md`: tema, integrantes, entidades, rotas com exemplo de requisição/resposta, erros HTTP, como rodar localmente.
 - [ ] Repositório público no GitHub, clonável, com todo o código e o `.env` já commitados e enviados (`git push`) — ninguém deve precisar de configuração extra fora do repositório.
 
+> Frontend não é obrigatório — fica a critério da equipe. A API pode ser entregue e demonstrada inteiramente via Postman/curl, sem nenhuma tela.
+
 ### Extras (fora da carta sorteada, pontuam à parte)
 
 - [ ] Implementar um **segundo** tópico avançado além do sorteado pela carta.
@@ -230,7 +232,7 @@ Pontos que precisam aparecer na apresentação:
 
 - [ ] Integrantes da equipe e o papel de cada um no projeto
 - [ ] Tema e aplicação escolhidos — contextualização do domínio
-- [ ] Demonstração funcionando ao vivo, **incluindo a carta-desafio sorteada**
+- [ ] Demonstração funcionando ao vivo, **incluindo a carta-desafio sorteada** — via Postman/curl; se a equipe tiver construído um frontend (opcional), a demonstração também pode ser feita por inspeção do navegador (`F12` → aba Network, como na Aula 2)
 - [ ] Breve descrição da arquitetura (camadas, entidades, relacionamentos)
 - [ ] Apresentação breve do `README.md`
 
