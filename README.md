@@ -726,8 +726,8 @@ Working Directory  →  Staging Area  →  Local Repository  →  Remote Reposit
 
 | Arquivo | Conteúdo |
 |---|---|
-| [aula03-oop-topicos-especiais.pdf](<Aula 03/aula03-oop-topicos-especiais.pdf>) | Slides da aula (31 slides) |
-| [exemplo-oop.zip](<Aula 03/exemplo-oop.zip>) | Projeto base usado nos exercícios (`Animal`, `Cachorro`, `Gato`, `Robo`, `Rastreavel`, `Main`) |
+| [aula03-oop-topicos-especiais.pdf](<Aula 03-04/aula03-oop-topicos-especiais.pdf>) | Slides da aula (31 slides) |
+| [exemplo-oop.zip](<Aula 03-04/exemplo-oop.zip>) | Projeto base usado nos exercícios (`Animal`, `Cachorro`, `Gato`, `Robo`, `Rastreavel`, `Main`) |
 
 Backend · Prof. Daniel Plácido · SATC 2026.1
 
@@ -1165,7 +1165,7 @@ Rastreavel «interface»
 
 ## Aula 6 — Avaliação N1
 
-Prova teórica cobrindo Arquitetura da Web, HTTP e Orientação a Objetos em Java (Aulas 1 a 4). Sem materiais adicionais.
+Prova teórica cobrindo Arquitetura da Web, HTTP e Orientação a Objetos em Java (Aulas 2 a 5). Sem materiais adicionais.
 
 **Próxima aula:** Web Services + Protocolo HTTP/JSON.
 
@@ -1189,7 +1189,7 @@ Entender o que é um Web Service, como o protocolo HTTP estrutura a conversa ent
 
 - É um serviço — uma funcionalidade — acessível pela Web, usando a internet como meio de comunicação.
 - Permite que sistemas diferentes, em linguagens e plataformas diferentes, conversem entre si (ex.: um app mobile, um site em JavaScript e um sistema desktop em Java podem consumir o mesmo Web Service).
-- Segue o mesmo modelo cliente-servidor da Aula 02: quem oferece o serviço é o servidor, quem usa é o cliente.
+- Segue o mesmo modelo cliente-servidor da Aula 2: quem oferece o serviço é o servidor, quem usa é o cliente.
 
 #### Três características centrais
 
@@ -1456,7 +1456,7 @@ Descer uma camada abaixo do HTTP (TCP/IP, DNS) para entender o que sustenta toda
 
 - **TCP/IP** cuidam do endereçamento e da transmissão dos pacotes de dados pela rede — TCP garante integridade, ordem e entrega; IP cuida do roteamento pelo endereço IP.
 - **DNS** (*Domain Name System*) traduz nomes de domínio (`exemplo.com.br`) em endereços IP (`20.30.2.1`), antes mesmo da primeira requisição HTTP.
-- **HTTP/HTTPS** cuidam do tráfego de mensagens entre as aplicações — a camada que já vimos na Aula 07.
+- **HTTP/HTTPS** cuidam do tráfego de mensagens entre as aplicações — a camada que já vimos na Aula 7.
 
 > 🧱 **A Web em camadas:** HTML/CSS/JS/Web APIs no topo — HTTP (camada de aplicação) — TLS (se HTTPS) — TCP (entrega) — DNS/IP (nomes e roteamento).
 
