@@ -51,9 +51,7 @@
 | Arquivo | Conteúdo |
 |---|---|
 | [P1_Introducao_a_Disciplina.pdf](<Aula 01/P1_Introducao_a_Disciplina.pdf>) | Tópico 00 — Introdução à Disciplina |
-| [P1_Material_de_Apoio.pdf](<Aula 01/P1_Material_de_Apoio.pdf>) | Material de apoio do Tópico 00 |
 | [P2_Introducao_a_Web.pdf](<Aula 01/P2_Introducao_a_Web.pdf>) | Tópico 01 — Introdução à Web |
-| [P2_Material_de_Apoio.pdf](<Aula 01/P2_Material_de_Apoio.pdf>) | Material de apoio do Tópico 01 |
 | [P3_Arquitetura_da_Web.pdf](<Aula 01/P3_Arquitetura_da_Web.pdf>) | Tópico 02 — Arquitetura da Web |
 
 Esta aula reúne três apresentações, que juntas dão a base necessária antes de começarmos a programar:
