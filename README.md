@@ -2,7 +2,7 @@
 
 **Disciplina:** Backend — Engenharia de Software
 **Professor:** Daniel Plácido
-**Contato:** phpsistemas@gmail.com
+**Contato:** daniel.placido@satc.edu.br
 **SATC 2026.1**
 
 ## Índice
