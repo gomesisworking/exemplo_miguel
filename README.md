@@ -17,6 +17,7 @@
   - [Parte 1 — Java na prática](#parte-1--java-na-prática)
   - [Parte 2 — Git na prática](#parte-2--git-na-prática)
   - [O que aprendemos hoje](#o-que-aprendemos-hoje)
+  - [Exercício extra — Cadastro de Alunos (para casa)](#exercício-extra--cadastro-de-alunos-para-casa)
 - [Aula 4 e 5 — Orientação a Objetos em Java + Tópicos Especiais](#aula-4-e-5--orientação-a-objetos-em-java--tópicos-especiais)
   - [Materiais](#materiais-1)
   - [Objetivo da aula](#objetivo-da-aula-1)
@@ -656,16 +657,18 @@ Use mensagens curtas e claras, como "Primeiro commit do projeto ola-mundo".
 #### Passo 12 — Vinculando o remoto e enviando
 
 - **`git remote add origin <url>`** — cria um atalho chamado `origin` apontando para o repositório do GitHub.
+- **`git branch -M main`** — renomeia o branch atual para `main`, caso ele tenha sido criado como `master`.
 - **`git push -u origin main`** — envia os commits locais para o GitHub. O `-u` lembra essa ligação para os próximos `push`.
 ```bash
 $ git remote add origin git@github.com:usuario/ola-mundo.git
+$ git branch -M main
 $ git push -u origin main
 Enumerating objects: 6, done.
 ...
 branch 'main' set up to track 'origin/main'.
 ```
 
-> **Dica:** se o branch padrão do seu projeto se chamar `master` em vez de `main`, troque no comando de acordo (`git push -u origin master`).
+> **Dica:** se o branch padrão do seu projeto se chamar `master` em vez de `main`, o comando `git branch -M main` resolve isso antes do `push`.
 
 #### Conferindo o resultado no GitHub
 
@@ -684,6 +687,15 @@ Switched to a new branch 'nova-feature'
 $ git branch
   main
 * nova-feature
+```
+
+Depois de alterar o código na branch `nova-feature`, faça o *push* da branch para o repositório remoto com `git push -u origin nova-feature`:
+
+```bash
+$ git push -u origin nova-feature
+Enumerating objects: 4, done.
+...
+branch 'nova-feature' set up to track 'origin/nova-feature'.
 ```
 
 Depois de testar, volte para o `main` com `git checkout main`.
@@ -738,6 +750,31 @@ Working Directory  →  Staging Area  →  Local Repository  →  Remote Reposit
 - Fazer o primeiro commit e enviar um projeto para um repositório remoto.
 - Trabalhar com branches, merge e sincronização (`fetch`/`pull`/`push`).
 **Próxima aula:** Orientação a Objetos I.
+
+---
+
+### Exercício extra — Cadastro de Alunos (para casa)
+
+> Se sobrar tempo no laboratório, comece agora; caso contrário, finalize em casa.
+
+**Objetivo:** praticar variáveis, tipos de dados, arrays e laços de repetição criando um pequeno cadastro de alunos.
+
+**O que o programa deve fazer:**
+
+1. Perguntar ao professor (usuário) quantos alunos serão cadastrados, usando `Scanner`.
+2. Criar um array de `String` para os nomes e um array de `double` para as médias, com tamanho igual ao total informado.
+3. Para cada aluno, usando um `for`:
+   - Ler o nome do aluno.
+   - Ler 3 notas do aluno.
+   - Calcular e guardar a média das 3 notas.
+4. Ao final, imprimir uma lista com o nome e a média de cada aluno.
+
+> **Uso de IA:** ferramentas de IA só podem ser usadas para tirar dúvidas (entender conceitos, erros, mensagens de erro). Não peça para a IA escrever o código por você — o objetivo é praticar a lógica com suas próprias mãos.
+
+**Entrega:**
+
+1. Crie um repositório **público** no GitHub (pode reaproveitar o passo a passo da [Parte 2 — Git na prática](#parte-2--git-na-prática)) e envie o código do exercício para ele.
+2. Envie um e-mail para **daniel.placido@satc.edu.br** com o link do repositório.
 
 ---
 
