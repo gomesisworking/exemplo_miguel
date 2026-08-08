@@ -448,6 +448,27 @@ System.out.println("Olá " + nome + " " + sobrenome + "!");
 - **`String`** — tipo de dado usado para guardar texto (nome, sobrenome).
 - **`int`** — tipo de dado usado para guardar números inteiros (o ano).
 - **`+`** — operador usado para juntar (concatenar) textos e variáveis.
+
+#### Tipos de dados em Java
+
+Toda variável em Java precisa declarar explicitamente o tipo de dado que vai armazenar. Abaixo os principais tipos primitivos e de referência:
+
+**Tipos primitivos** (atributos da linguagem, não são objetos, armazenam o valor diretamente na memória):
+
+| Tipo | Descrição | Exemplo |
+|---|---|---|
+| `int` | Números inteiros (sem parte decimal): idade, ano, quantidade. | `int idade = 30;` |
+| `double` | Números com casas decimais (ponto flutuante de 64 bits): preço, altura, peso. | `double preco = 19.99;` |
+| `float` | Números com casas decimais (ponto flutuante de 32 bits, menos preciso). Requer sufixo `f`. | `float valor = 10.5f;` |
+| `long` | Números inteiros grandes (acima do limite do `int`). Requer sufixo `L`. | `long populacao = 2100000000L;` |
+| `boolean` | Valores lógicos, apenas `true` ou `false`: flags, condições. | `boolean ativo = true;` |
+
+**Tipo de referência** (não primitivo — são objetos, instâncias de classes, apontando para classes. Armazenam uma referência, endereço de memória, para o objeto, não o valor em si):
+
+| Tipo | Descrição | Exemplo |
+|---|---|---|
+| `String` | Texto, sequência de caracteres entre aspas duplas: nomes, frases, endereços. | `String nome = "Maria";` |
+
 #### Entendendo o código — decisão, vetores e repetição
 
 ```java
@@ -473,7 +494,7 @@ Depois de rodar o projeto, tente estes três desafios:
 
 - **A — Mude a mensagem final:** troque o texto `"Olá mundo!"` dentro do método `exercicio01` por uma mensagem sua.
 - **B — Adicione uma 4ª nota:** aumente o array `notas` para 4 posições, adicione um novo valor e ajuste o `for` e a divisão da média.
-- **C — Mude a condição do `if`:** troque o número `5` por outro valor e veja como muda a resposta "nome longo/curto".
+- **C — Controle adicional:** controle o tamanho do array dentro de uma nova variável, e use o atributo `notas.length` para ajustar o `for` e a divisão da média.
 > Depois de cada alteração, rode o programa de novo (▶) para ver o resultado. Errar é normal — é assim que se aprende a programar!
 
 #### Problemas comuns ao rodar o projeto
