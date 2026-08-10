@@ -333,6 +333,100 @@ Nesta aula vamos, na prática:
 Antes de começar, confirme que você tem:
 
 - **JDK instalado** — o projeto usa Java na versão 25. Confirme com o comando `java -version` no terminal. Se não tiver, peça ajuda ao professor antes de continuar.
+
+> **O que é o JDK?**
+>
+> **JDK** (*Java Development Kit*) é o kit completo para desenvolver e rodar programas Java. Reúne três peças:
+>
+> - **Compilador (`javac`)** — traduz o código-fonte que você escreve (`.java`) para *bytecode* (`.class`), um formato intermediário.
+> - **JVM (Java Virtual Machine)** — a "máquina virtual" que executa esse bytecode, traduzindo-o para o que o processador entende. É por causa da JVM que o mesmo `.class` roda igual no Windows, Mac ou Linux.
+> - **JRE (Java Runtime Environment)** — JVM + bibliotecas padrão (`String`, `ArrayList`, `Scanner`...) que todo programa Java usa em tempo de execução.
+>
+> Resumindo: **JDK = JRE + compilador + ferramentas de desenvolvimento**. O JRE sozinho só *executa* Java já compilado; o JDK também permite *escrever e compilar* — por isso é ele que instalamos para programar, não só o JRE. No comando `java -version`, é o JDK instalado que responde.
+
+> **Windows — JDK ausente ou mal configurado:**
+>
+> | Sintoma | O que fazer |
+> |---|---|
+> | `'java' não é reconhecido como um comando interno ou externo` | JDK não instalado. Baixe o JDK 25 (ex.: [Eclipse Temurin](https://adoptium.net) ou [Oracle JDK](https://www.oracle.com/java/technologies/downloads/)) e rode o instalador `.msi` com as opções padrão. |
+> | `java -version` mostra uma versão antiga (8, 11, 17...) | Outro JDK mais antigo está na frente no `PATH`. Ajuste a variável `JAVA_HOME` para a pasta do JDK 25 e confirme que `%JAVA_HOME%\bin` vem antes das demais entradas Java no `PATH` (Painel de Controle → Sistema → Configurações avançadas → Variáveis de Ambiente). |
+> | Comando continua não reconhecido depois de instalar | Feche e abra um terminal novo (ou reinicie o PC) — o PATH só é recarregado em uma sessão nova. |
+>
+> **O instalador já configura isso sozinho?**
+>
+> - **Oracle JDK:** configura o `PATH` automaticamente (copia `java.exe`/`javac.exe` para uma pasta compartilhada em `Common Files\Oracle\Java\javapath`, que já fica no PATH do sistema) — `java -version` já funciona depois de instalar. Mas **não define `JAVA_HOME`**; crie essa variável manualmente se alguma ferramenta exigir (Maven/Gradle pela linha de comando, por exemplo).
+> - **Eclipse Temurin:** o instalador mostra checkboxes na tela de instalação — **"Add to PATH"** e **"Set JAVA_HOME"** — normalmente já vêm marcados, então configura os dois sozinho.
+>
+> **Corrigindo `JAVA_HOME` e `PATH` quando existe um JDK antigo:**
+>
+> ⚠️ **`JAVA_HOME` e `Path` apontam para pastas diferentes** — é o erro mais comum ao configurar isso:
+>
+> | Variável | Aponta para | Exemplo |
+> |---|---|---|
+> | `JAVA_HOME` | A pasta **raiz** do JDK (sem `\bin`) | `C:\Program Files\Java\jdk-25` |
+> | `Path` | A subpasta **`\bin`** dentro dela, onde ficam `java.exe`/`javac.exe` | `%JAVA_HOME%\bin` → resolve para `C:\Program Files\Java\jdk-25\bin` |
+>
+> Se o `Path` apontar para a pasta raiz (sem o `\bin`), o Windows não acha o executável e o erro de "comando não reconhecido" continua, mesmo com `JAVA_HOME` certo.
+>
+> 1. Descubra a pasta **raiz** do JDK 25 instalado, ex.: `C:\Program Files\Java\jdk-25` (ou `C:\Program Files\Eclipse Adoptium\jdk-25...`, se usou o Temurin). Repare que não tem `\bin` no final — essa parte entra só no `Path`, no Passo 6.
+> 2. Aperte `Win`, digite **"Editar as variáveis de ambiente do sistema"** e abra esse painel (é o mesmo que Painel de Controle → Sistema → Configurações avançadas do sistema → aba Avançado → botão **Variáveis de Ambiente**).
+> 3. Em **Variáveis do sistema**, procure `JAVA_HOME`:
+>    - Se já existir, selecione e clique em **Editar**.
+>    - Se não existir, clique em **Novo**: nome `JAVA_HOME`, valor = a pasta **raiz** do Passo 1 (sem `\bin`).
+> 4. Ainda em **Variáveis do sistema**, selecione `Path` e clique em **Editar**.
+> 5. Veja se há alguma entrada de um JDK antigo na lista (ex.: `C:\Program Files\Java\jdk-17\bin`). Selecione essa entrada e clique em **Excluir**, ou use **Mover para cima/baixo** para jogá-la para o final da lista.
+> 6. Clique em **Novo** e adicione `%JAVA_HOME%\bin`. Use **Mover para cima** até essa entrada ficar acima de qualquer outra entrada relacionada a Java.
+> 7. Clique em **OK** em todas as janelas abertas para salvar.
+> 8. Feche **todos** os terminais e o IntelliJ, abra um terminal novo e rode `java -version` — deve mostrar a versão 25.
+>
+> O Windows usa a **primeira** entrada compatível que encontra no `PATH`, de cima para baixo — por isso a ordem importa mais do que só ter `%JAVA_HOME%\bin` na lista. Para conferir qual `java.exe` está sendo usado, rode `where java` no terminal: o primeiro caminho da lista é o que o comando `java` de fato executa.
+
+> **macOS — JDK ausente ou mal configurado:**
+>
+> | Sintoma | O que fazer |
+> |---|---|
+> | `zsh: command not found: java` (ou o macOS oferece para baixar um "Java runtime") | JDK não instalado. Baixe o JDK 25 (ex.: [Eclipse Temurin](https://adoptium.net) ou [Oracle JDK](https://www.oracle.com/java/technologies/downloads/)) e rode o instalador `.pkg`. |
+> | `java -version` mostra uma versão antiga | Mais de um JDK instalado e o `JAVA_HOME` não aponta para o 25 — veja o passo a passo abaixo. |
+> | Comando continua não reconhecido depois de instalar | Feche e abra um terminal novo, ou rode `source ~/.zshrc` para recarregar o perfil. |
+>
+> No Mac, o instalador `.pkg` do JDK registra a versão em `/Library/Java/JavaVirtualMachines/` e a torna visível para o utilitário `java_home` — normalmente não é preciso mexer em nenhum PATH manualmente, só apontar o `JAVA_HOME` certo.
+>
+> **Selecionando a versão certa com `java_home`:**
+>
+> 1. Liste todos os JDKs que o macOS já reconhece: `/usr/libexec/java_home -V` (V maiúsculo).
+> 2. Confirme que o JDK 25 aparece na lista. Se não aparecer, o instalador não rodou corretamente — reinstale o `.pkg`.
+> 3. Abra o arquivo de perfil do terminal (`~/.zshrc`, o shell padrão do macOS atual — use `~/.bash_profile` se você usa bash) e adicione ao final:
+>    ```bash
+>    export JAVA_HOME=$(/usr/libexec/java_home -v 25)
+>    export PATH="$JAVA_HOME/bin:$PATH"
+>    ```
+> 4. Salve o arquivo, feche o terminal e abra um novo (ou rode `source ~/.zshrc`).
+> 5. Rode `java -version` para confirmar que mostra a versão 25.
+
+> **Linux (Ubuntu/Debian) — JDK ausente ou mal configurado:**
+>
+> | Sintoma | O que fazer |
+> |---|---|
+> | `java: comando não encontrado` | JDK não instalado. Rode `sudo apt update && sudo apt install openjdk-25-jdk` (se a sua versão do Ubuntu ainda não tiver o pacote 25, baixe o `.tar.gz` do [Eclipse Temurin](https://adoptium.net) e extraia em `/opt/`). |
+> | `java -version` mostra uma versão antiga | Mais de um JDK instalado, e o padrão do sistema aponta para o antigo — veja o passo a passo abaixo. |
+> | Comando continua não reconhecido depois de instalar | Feche e abra um terminal novo, ou rode `source ~/.bashrc`. |
+>
+> **Escolhendo a versão padrão com `update-alternatives`:**
+>
+> 1. Veja quais JDKs o sistema já conhece: `update-alternatives --list java`.
+> 2. Rode `sudo update-alternatives --config java` e escolha o número correspondente ao JDK 25 na lista.
+> 3. Repita para o compilador: `sudo update-alternatives --config javac`.
+> 4. Rode `java -version` para confirmar.
+>
+> **Configurando `JAVA_HOME` (necessário para Maven/Gradle pela linha de comando):**
+>
+> O `apt` não define `JAVA_HOME` sozinho. Adicione ao final do `~/.bashrc`:
+> ```bash
+> export JAVA_HOME=/usr/lib/jvm/java-25-openjdk-amd64
+> export PATH="$JAVA_HOME/bin:$PATH"
+> ```
+> (confirme o caminho exato com `update-alternatives --list java` — é a pasta antes do `/bin/java` no caminho listado). Depois, rode `source ~/.bashrc` ou abra um terminal novo.
+
 - **IntelliJ IDEA instalado** — pode ser a versão Community (gratuita) ou Ultimate. É o programa (IDE) que usaremos para escrever e rodar código Java.
 - **Projeto `ola-mundo` recebido** — o arquivo [`ola-mundo.zip`](<Aula 02/ola-mundo.zip>) deve estar salvo em uma pasta de fácil acesso, por exemplo Documentos ou a Área de Trabalho.
 > **Dica:** se algo da lista estiver faltando, avise o professor agora — é mais rápido resolver antes de seguir para os próximos passos.
