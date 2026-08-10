@@ -344,6 +344,15 @@ Antes de começar, confirme que você tem:
 >
 > Resumindo: **JDK = JRE + compilador + ferramentas de desenvolvimento**. O JRE sozinho só *executa* Java já compilado; o JDK também permite *escrever e compilar* — por isso é ele que instalamos para programar, não só o JRE. No comando `java -version`, é o JDK instalado que responde.
 
+> **Preciso mesmo configurar `JAVA_HOME`/`PATH` do sistema?**
+>
+> Só se você for usar `java`, `javac` ou `mvn` **direto no terminal**, fora do IntelliJ. Dentro da IDE, o projeto roda independente da configuração do sistema:
+>
+> - **JDK do projeto**: em `File → Project Structure → SDKs` (ou `Project`), o IntelliJ detecta automaticamente os JDKs instalados na máquina, varrendo os locais padrão de instalação — mesmo que o `PATH`/`JAVA_HOME` do sistema esteja errado ou apontando para uma versão antiga. Se não detectar, dá para apontar manualmente para a pasta do JDK ali mesmo, sem tocar em variável de ambiente nenhuma.
+> - **Dependências do Maven** (as do `pom.xml`): o IntelliJ resolve e baixa tudo sozinho, usando o Maven embutido dele (é o "Resolving dependencies" / "Downloading..." do Passo 4), também sem depender do terminal.
+>
+> Ou seja, os blocos de troubleshooting abaixo (Windows/macOS/Linux) resolvem problemas do **terminal**. Se o erro aparecer só dentro do IntelliJ (ex.: "No JDK found"), a solução é direto pelo `Project Structure` — veja a tabela de "Problemas comuns" mais abaixo.
+
 > **Windows — JDK ausente ou mal configurado:**
 >
 > | Sintoma | O que fazer |
@@ -429,7 +438,6 @@ Antes de começar, confirme que você tem:
 
 - **IntelliJ IDEA instalado** — pode ser a versão Community (gratuita) ou Ultimate. É o programa (IDE) que usaremos para escrever e rodar código Java.
 - **Projeto `ola-mundo` recebido** — o arquivo [`ola-mundo.zip`](<Aula 02/ola-mundo.zip>) deve estar salvo em uma pasta de fácil acesso, por exemplo Documentos ou a Área de Trabalho.
-> **Dica:** se algo da lista estiver faltando, avise o professor agora — é mais rápido resolver antes de seguir para os próximos passos.
 
 #### Passo 1 — Extraindo o projeto ola-mundo
 
