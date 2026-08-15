@@ -75,6 +75,10 @@ import tributaveis.Tributavel;
 public class Main {
 
     // Locale do Brasil: faz o valor sair como 1.234,56 em vez de 1,234.56.
+    // Locale é uma classe da API Java que representa uma região e idioma.
+    // private: Significa que a variável BR só pode ser acessada dentro da própria classe. Outras classes não conseguem acessar BR diretamente.
+    // static: A variável pertence à classe, e não aos objetos.
+    // Final: Significa que a referencia não pode ser alterada.
     private static final Locale BR = Locale.of("pt", "BR");
 
     // Mesma largura usada nos extratos, para tudo alinhar na tela.
@@ -260,7 +264,60 @@ public class Main {
         // Separa as linhas do total.
         System.out.println("-".repeat(LARGURA));
 
-        // Soma dos três impostos.
+        // Imprime a linha do TOTAL, alinhada com todas as outras. Tem DUAS coisas
+        // acontecendo aqui, e vale separar:
+        //
+        //   String.format(...)  MONTA um texto e devolve -- não imprime nada.
+        //   System.out.println  recebe esse texto pronto e imprime.
+        //
+        // Poderia ser em duas linhas, e daria no mesmo:
+        //     String linha = String.format(BR, "%-28.28s %,16.2f", "TOTAL", total);
+        //     System.out.println(linha);
+        //
+        // ----------------------------------------------------------------------
+        // COMO LER O MOLDE "%-28.28s %,16.2f"
+        // ----------------------------------------------------------------------
+        // O texto entre aspas é um MOLDE com buracos. Cada "%" abre um buraco, e os
+        // valores que vêm depois preenchem os buracos NA ORDEM em que aparecem:
+        //
+        //     "%-28.28s   %,16.2f"
+        //        ↑buraco1   ↑buraco2
+        //         "TOTAL"    total
+        //
+        // O que NÃO faz parte de um "%" é copiado literalmente -- aqui, só o espaço
+        // que separa os dois buracos.
+        //
+        // Buraco 1 -> %-28.28s   (o texto da esquerda)
+        //     %     começa a instrução
+        //     -     alinha à ESQUERDA. Sem o "-", o texto iria para a direita.
+        //     28    largura MÍNIMA: se faltar, completa com espaços até 28 colunas
+        //     .28   largura MÁXIMA: se sobrar, CORTA no caractere 28
+        //     s     o valor é uma String
+        //
+        // Buraco 2 -> %,16.2f    (o valor da direita)
+        //     %     começa a instrução
+        //     ,     usa separador de milhar (1.234.567,89 em vez de 1234567.89)
+        //     16    largura mínima 16, e sem "-" fica alinhado à DIREITA
+        //     .2    duas casas decimais
+        //     f     o valor é um número com vírgula (double)
+        //
+        // CUIDADO com uma pegadinha: o ponto significa coisas DIFERENTES nos dois.
+        // Em %s o ".28" CORTA o texto; em %f o ".2" define quantas CASAS DECIMAIS.
+        //
+        // A conta da largura: 28 + 1 espaço + 16 = 45, que é exatamente LARGURA.
+        // É por isso que a linha do TOTAL encaixa nas linhas de "=" e "-".
+        //
+        // O BR na frente é o Locale: ele decide qual símbolo separa o quê.
+        //     Locale.US -> 1,234,567.89      (vírgula milhar, ponto decimal)
+        //     BR        -> 1.234.567,89      (ponto milhar, vírgula decimal)
+        //
+        // Sem nada disso, "TOTAL " + total imprimiria "TOTAL 84.02": sem alinhamento,
+        // com ponto no lugar da vírgula e sem garantia das duas casas decimais.
+        //
+        // Resultado desta linha (as réguas são só para conferir as colunas):
+        //              1         2         3         4
+        //     123456789012345678901234567890123456789012345
+        //     TOTAL                                   84,02
         System.out.println(String.format(BR, "%-28.28s %,16.2f", "TOTAL", total));
 
         // Rodapé do resumo.
