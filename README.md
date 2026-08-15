@@ -933,7 +933,7 @@ A OOP agrupa dados e comportamentos relacionados dentro de uma classe. Isso faci
 - Cada objeto representa algo do mundo real (ou um conceito abstrato) com **dados** (atributos) e **comportamentos** (métodos).
 - A **classe** é o "molde"; o **objeto** é a coisa concreta criada a partir dela — cada objeto criado é uma **instância** da classe.
 - Exemplo clássico: a classe `Cachorro` descreve *cor*, *raça* e *peso* (atributos) e *correr*, *comer*, *latir* (métodos).
-- Cada instância guarda seus próprios valores: o Cachorro "Paçoca" e o Cachorro "Galactus" compartilham a mesma estrutura, mas têm dados diferentes.
+- Cada instância guarda seus próprios valores: o Cachorro "Paçoca" e o Cachorro "Plaquinha" compartilham a mesma estrutura, mas têm dados diferentes.
 
 #### Classes, atributos, métodos e `this`
 
@@ -1047,12 +1047,12 @@ public class Robo implements Rastreavel {
 
 ```java
 List<String> nomes = new ArrayList<>();
-nomes.add("Galactus");
+nomes.add("Plaquinha");
 // nomes.add(123); ❌ não compila!
 
 Map<String, Animal> animais = new HashMap<>();
-animais.put("Galactus", galactus);
-Animal a = animais.get("Galactus"); // já vem como Animal, sem cast
+animais.put("Plaquinha", plaquinha);
+Animal a = animais.get("Plaquinha"); // já vem como Animal, sem cast
 ```
 
 #### Recapitulando: Classes x Classes Abstratas x Interfaces
@@ -1093,8 +1093,8 @@ public class Animal {
         return this.nome.equals(outro.nome);
     }
 }
-// System.out.println(galactus);
-// Galactus (Pincher)  ✅ não mais Animal@1a2b3c
+// System.out.println(plaquinha);
+// Plaquinha (Pincher)  ✅ não mais Animal@1a2b3c
 ```
 
 #### Construtores
@@ -1136,15 +1136,15 @@ A sintaxe `~NomeClasse()` é de C++ — **não existe em Java**. Se aparecer em 
 #### O que é o Garbage Collector?
 
 - Toda vez que você faz `new Animal()`, o Java reserva um espacinho de memória (RAM) para guardar aquele objeto.
-- Uma variável (como `galactus`) não é o objeto — ela é uma **referência**, um "post-it" que aponta para onde o objeto está guardado na memória.
+- Uma variável (como `plaquinha`) não é o objeto — ela é uma **referência**, um "post-it" que aponta para onde o objeto está guardado na memória.
 - Quando nenhuma variável aponta mais para um objeto, aquele objeto vira "lixo" — ninguém mais consegue acessá-lo.
 - O **Garbage Collector** ("coletor de lixo") é uma parte do Java que roda em segundo plano, encontra esses objetos sem dono e libera a memória automaticamente.
 - É por isso que você nunca precisa (e nem consegue) escrever código para "destruir" um objeto — diferente de linguagens como C++.
 
 ```java
-Animal galactus = new Animal();
+Animal plaquinha = new Animal();
 // ... uso normal do objeto ...
-galactus = null;   // ninguém mais aponta pra cá
+plaquinha = null;   // ninguém mais aponta pra cá
 // 🗑 o Garbage Collector recolhe a memória, em algum momento depois
 ```
 
@@ -1167,7 +1167,7 @@ Guardando vários objetos: por que não usar só um array? Porque array tem tama
 
 ```java
 List<String> nomes = new ArrayList<>();
-nomes.add("Galactus");
+nomes.add("Plaquinha");
 nomes.add("Fumaça");
 nomes.add("R2D2");
 
@@ -1181,7 +1181,7 @@ System.out.println(nomes.size());
 for (String nome : nomes) {
     System.out.println(nome);
 }
-// Galactus
+// Plaquinha
 // Fumaça
 ```
 
