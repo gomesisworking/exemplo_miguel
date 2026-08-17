@@ -2,25 +2,49 @@
 //  COLA RÁPIDA -- CONCEITO DE POO  =  PALAVRA-CHAVE DO JAVA
 // ============================================================================
 //
+//  Classe é o molde; 
 //  CLASSE          =  class                  -> contas/Conta.java: a "planta baixa"
+//  ------------------------------------------------------
+//  Objeto é a instância;
 //  OBJETO          =  new                    -> new ContaCorrente("Natan", "1234-5")
+//  ------------------------------------------------------
+//  Abstração e interfaces ajudam a definir modelos e contratos
+//  Abstração       =  abstract               -> ContaCorrente, ContaPoupanca
+//  ------------------------------------------------------
+//  Encapsulamento: proteger atributos com private e acessá-los por getters e setters quandonecessário.
 //  ENCAPSULAMENTO  =  private                -> private double saldo (e nenhum setSaldo)
+//  ------------------------------------------------------
+//  Herança: uma classe filha herda atributos e métodos da classe mãe usando extends.
 //  HERANÇA         =  extends  +  super      -> ContaCorrente extends Conta
+//  ------------------------------------------------------
 //  INTERFACE       =  interface + implements -> Conta implements Tributavel
+//  ------------------------------------------------------
+//  Polimorfismo permite tratar objetos de subclasses por uma referência da superclasse.
 //  POLIMORFISMO    =  @Override              -> conta.sacar(100): a MESMA linha roda
 //                                               código diferente conforme o objeto
-//
+//  ------------------------------------------------------
 //  Outros termos que aparecem no código:
-//
+//  ------------------------------------------------------
+//  Atributos representam características; 
+//  ATRIBUTO        =  private                -> private String titular
+//  ------------------------------------------------------
+//  métodos representam comportamentos.
+//  MÉTODO          =  public                 -> public void sacar(double valor)
+//  ------------------------------------------------------
 //  CONSTRUTOR      =  método com o nome da classe e SEM tipo de retorno
+//  ------------------------------------------------------
 //  SOBRECARGA      =  mesmo nome, parâmetros diferentes  -> depositar(double)
 //                                                           depositar(double, String)
+//  ------------------------------------------------------
+//  Sobrescrita ocorre quando a subclasse reimplementa um método herdado.
 //  SOBRESCRITA     =  @Override na subclasse             -> ContaCorrente.sacar()
+//  ------------------------------------------------------
 //  COMPOSIÇÃO      =  atributo que é outro objeto        -> Conta TEM lançamentos
+//  ------------------------------------------------------
 //  CONSTANTE       =  static final                       -> TAXA_SAQUE = 0.50
+//  ------------------------------------------------------
 //  PACOTE          =  package  +  import                 -> package contas;
-//  ABSTRAÇÃO       =  abstract                           -> Exercício 1, lá embaixo
-//
+//  ------------------------------------------------------
 //  Cuidado para não confundir:
 //    HERANÇA  = parentesco  ("ContaCorrente É uma Conta")     -> extends, só 1 mãe
 //    INTERFACE= compromisso ("Acao SABE calcular imposto")    -> implements, quantas quiser
